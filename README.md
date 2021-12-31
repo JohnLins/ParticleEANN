@@ -1,6 +1,15 @@
 # EANN
 
-Video: https://youtu.be/6T_b6jBGXl8
+Video (V1): https://youtu.be/6T_b6jBGXl8
+Video (V2): https://youtu.be/6T_b6jBGXl8
+
+
+#Before Training:
+<img src="assets/pre.gif" height="150px"/>
+
+#After Training:
+<img src="assets/post.gif" height="150px"/>
+
 
 
 <img src="assets/equations/dna.png" height="40px"/>

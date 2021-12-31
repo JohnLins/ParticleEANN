@@ -2,19 +2,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h>
+#include<time.h>
+
+#define DNAlen 500
+#define BOTnum 10
+#define WALLmax 500
 
 
-#include "types.h"
-#include "collision.h"
-#include "macros.h"
+typedef struct Bot {
+    float *DNA;
+    float invReward;
+    Vector2 pos;
+    bool status;
+} Bot;
 
 
-
-
-
-
-
+bool wallCollision(Bot *bots, Vector2 *walls, float *pixdim){
+    for(int i = 0; i < BOTnum; i++){
+        for(int j = 0; j < WALLmax; j++){
+            if(  ((bots[i].pos.x <= walls[j].x + *pixdim && bots[i].pos.x + *pixdim >= walls[j].x ) && ( bots[i].pos.y + *pixdim >= walls[j].y  && bots[i].pos.y <= walls[j].y + *pixdim))   ){
+                return 1;
+            }
+            
+        }
+        
+    }
+    
+    return 0;
+    
+}
 
 
 int main()
@@ -27,6 +43,7 @@ int main()
     float pixdim = 15;
     
     float stepLen = 3;
+   
     
     
     
@@ -93,7 +110,13 @@ int main()
               
             }
             
-            
+            //collision detection and timer
+            for(int j = 0; j < BOTnum; j++){
+                    if((index == DNAlen) /* check if they hit the walls */ || wallCollision(bots, wall, &pixdim) != 0){
+                        bots[j].invReward= sqrtf(  powf(bots[j].pos.x - rewardBoxPos.x, 2) + powf(bots[j].pos.y - rewardBoxPos.y, 2)  );//distance
+                        bots[j].status = 0; // hit
+                    }
+                } 
                 
               DrawText(FormatText("Best Reward (lower is better): %d", (int)bestRewardForDisplay), SW + 20, 20, 15, BLACK);
               
@@ -101,31 +124,18 @@ int main()
               for(int i = 0; i < 10; i++){
                   DrawText(FormatText("🧬 %d: %f", i, bestDNAForDisplay[i]), SW + 20, 70 + i*15 , 12, BLACK);
               }
-             //collision detection and timer /* check if they hit the walls */
-            //for(int j = 0; j < BOTnum; j++){
-                Collision collisionIndexs = wallCollision(bots, wall, &pixdim);
-                    for(int i = 0; i < collisionIndexs.numOfCollisions; i++){
-                        bots[collisionIndexs.collidedBots[i]].invReward= sqrtf(  powf(bots[collisionIndexs.collidedBots[i]].pos.x - rewardBoxPos.x, 2) + powf(bots[collisionIndexs.collidedBots[i]].pos.y - rewardBoxPos.y, 2)  );//distance
-                        bots[collisionIndexs.collidedBots[i]].status = 0; // hit
-                    }
-              //  } 
-               
+           
            //Draw bots
            for(int i = 0; i < BOTnum; i++){
-             
                
                 DrawRectangle(bots[i].pos.x, bots[i].pos.y, pixdim, pixdim, BLUE);
   
                 if(bots[i].status == 1 && index <= DNAlen){
                     bots[i].pos.x += stepLen * cosf(bots[i].DNA[index]);
                     bots[i].pos.y += stepLen * sinf(bots[i].DNA[index]);
-                } else if (index > DNAlen){
-                    
-      
-                    
+                } else {
                     int bestIndex = 0;
                     for(int k = 0; k < BOTnum; k++){
-                        if(bots[k].status == 1){ bots[k].invReward = sqrtf(  powf(bots[k].pos.x - rewardBoxPos.x, 2) + powf(bots[k].pos.y - rewardBoxPos.y, 2)  );}//distance
                         if(bots[k].invReward < bots[bestIndex].invReward){
                             bestIndex = k;
                         }
@@ -154,10 +164,7 @@ int main()
                         
                     }
                     index = 0;
-                    //i = BOTnum;
-                } 
-                
-                
+                }
            }  index++;
            
            

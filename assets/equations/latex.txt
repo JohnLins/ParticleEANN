@@ -7,4 +7,4 @@ bot_{i,y}=\sum_{j=0}^{n}stepsize\cdot\sin\left(bot_{i,DNA}\left[j\right]\right) 
 
 reward\left\{i\right\}=\sqrt{\left(bot_{i,x}-food_{x}\right)^{2}+\left(bot_{i,y}-food_{y}\right)^{2}} \\
 
-bot_{i,newDNA\ }=reward\left\{i_{best,old}\right\}+rand\left(-\frac{\pi}{3},\frac{\pi}{3}\right)
+bot_{i,newDNA\ }=bot_{best,oldDNA}+rand\left(-\frac{\pi}{3},\frac{\pi}{3}\right)
