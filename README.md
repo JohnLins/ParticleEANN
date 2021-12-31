@@ -4,11 +4,11 @@ Video (V1): https://youtu.be/6T_b6jBGXl8
 Video (V2): https://youtu.be/6T_b6jBGXl8
 
 
-#Before Training:
-<img src="assets/pre.gif" height="150px"/>
+# Before Training:
+<img src="assets/pre.gif" height="200px"/>
 
-#After Training:
-<img src="assets/post.gif" height="150px"/>
+# After Training:
+<img src="assets/post.gif" height="200px"/>
 
 
 
