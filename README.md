@@ -1,7 +1,7 @@
 # EANN
 
 Video (V1): https://youtu.be/6T_b6jBGXl8
-Video (V2): https://youtu.be/6T_b6jBGXl8
+Video (V2): https://youtu.be/JMum93wtxnc
 
 
 # Before Training:
